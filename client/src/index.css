@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #ffffff;
+    color: #0B1E3D;
+    overflow-x: hidden;
+  }
+
+  :root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #F8FAFC;
+    --bg-tertiary: #f0f4f8;
+    --text-primary: #0B1E3D;
+    --text-secondary: #6B7280;
+    --text-muted: #9CA3AF;
+    --border-color: rgba(30, 144, 255, 0.1);
+  }
+
+  .dark {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-tertiary: #0f172a;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border-color: rgba(30, 144, 255, 0.15);
+  }
+
+  .dark body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #1E90FF;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: rgba(30, 144, 255, 0.15);
+    color: #0B1E3D;
+  }
+}
+
+@layer components {
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 20px rgba(11, 30, 61, 0.06);
+  }
+
+  .dark .glass {
+    background: rgba(15, 23, 42, 0.8);
+  }
+
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(30, 144, 255, 0.08);
+  }
+
+  .dark .glass-nav {
+    background: rgba(15, 23, 42, 0.9);
+    border-bottom: 1px solid rgba(30, 144, 255, 0.1);
+  }
+
+  .btn-primary {
+    @apply px-8 py-3 bg-gradient-to-r from-electric to-electric-dark rounded-lg font-semibold text-white
+           transition-all duration-300 hover:shadow-lg hover:shadow-electric/30
+           hover:scale-[1.02] active:scale-95;
+  }
+
+  .btn-outline {
+    @apply px-8 py-3 border border-electric/40 rounded-lg font-semibold text-electric
+           transition-all duration-300 hover:bg-electric/5 hover:border-electric
+           hover:shadow-md hover:shadow-electric/10;
+  }
+
+  .card {
+    background: var(--bg-primary);
+    @apply rounded-xl p-6 border shadow-sm transition-all duration-300 hover:shadow-md;
+    border-color: var(--border-color);
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, #1E90FF, #0099CC);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-grid {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231E90FF' fill-opacity='0.03'%3E%3Cpath d='M0 0h60v60H0z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+}

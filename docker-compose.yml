@@ -1,0 +1,38 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: tdr-mongo
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - tdr-network
+
+  app:
+    build: .
+    container_name: tdr-app
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - MONGO_URI=mongodb://mongodb:27017/technodrone
+      - JWT_SECRET=${JWT_SECRET:-change-me-in-production}
+      - CLIENT_URL=https://technodronerobotics.com
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASS=${SMTP_PASS}
+      - NOTIFICATION_EMAIL=${NOTIFICATION_EMAIL}
+    depends_on:
+      - mongodb
+    networks:
+      - tdr-network
+
+volumes:
+  mongo-data:
+
+networks:
+  tdr-network:
+    driver: bridge

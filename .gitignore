@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+*.log
+.DS_Store
+server/uploads/
+*.mp4
+*.mov
+*.avi
+coverage/
+.vscode/
+.idea/
