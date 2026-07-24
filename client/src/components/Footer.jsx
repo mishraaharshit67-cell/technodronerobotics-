@@ -9,7 +9,6 @@ const quickLinks = [
   { label: 'Home', path: '/' },
   { label: 'Solutions', path: '/#solutions' },
   { label: 'Drones', path: '/#drones' },
-  { label: 'Technology', path: '/technology' },
   { label: 'About', path: '/about' },
   { label: 'Contact', path: '/#contact' },
   { label: 'Blog', path: '/blog' },
@@ -92,7 +91,7 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start gap-3 text-gray-600 text-sm">
                 <FiMapPin className="mt-0.5 text-electric shrink-0" />
-                <span>123 Innovation Drive, Tech Valley, CA 94025</span>
+                <span>Ayodhaya Nagar, Bhopal-462041</span>
               </li>
               <li className="flex items-center gap-3 text-gray-600 text-sm">
                 <FiPhone className="text-electric shrink-0" />

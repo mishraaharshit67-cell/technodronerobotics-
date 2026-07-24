@@ -43,7 +43,7 @@ const products = [
 ];
 
 const contactInfo = [
-  { icon: FiMap, label: 'Address', value: '123 Innovation Drive, Tech Valley, CA 94025' },
+  { icon: FiMap, label: 'Address', value: 'Ayodhaya Nagar, Bhopal-462041' },
   { icon: FiTarget, label: 'Email', value: 'technodroneroboticspvt.ltd@gmail.com' },
   { icon: FiTool, label: 'Phone', value: '+91 8989846072 / 8989560802' },
 ];

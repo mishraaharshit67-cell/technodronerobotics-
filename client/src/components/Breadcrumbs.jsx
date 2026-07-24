@@ -6,7 +6,6 @@ const labels = {
   '/about': 'About',
   '/products': 'Products',
   '/services': 'Services',
-  '/technology': 'Technology',
   '/gallery': 'Gallery',
   '/blog': 'Blog',
   '/contact': 'Contact',

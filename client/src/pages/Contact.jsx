@@ -8,7 +8,7 @@ import { submitContact } from '../api';
 import { useToast } from '../context/ToastContext';
 
 const contactInfo = [
-  { icon: FiMapPin, label: 'Address', value: '123 Innovation Drive\nTech Valley, CA 94025' },
+  { icon: FiMapPin, label: 'Address', value: 'Ayodhaya Nagar\nBhopal-462041' },
   { icon: FiPhone, label: 'Phone', value: '+91 8989846072 / 8989560802' },
   { icon: FiMail, label: 'Email', value: 'technodroneroboticspvt.ltd@gmail.com' },
   { icon: FiClock, label: 'Hours', value: 'Mon–Fri: 8 AM – 6 PM\nSat: 9 AM – 2 PM' },

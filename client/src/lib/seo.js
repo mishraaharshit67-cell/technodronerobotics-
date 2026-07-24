@@ -75,7 +75,7 @@ export default function SEOHead({
         foundingDate: '2020',
         contactPoint: { '@type': 'ContactPoint', telephone: '+91-8989846072', contactType: 'sales', email: 'technodroneroboticspvt.ltd@gmail.com' },
         sameAs: ['https://linkedin.com/company/technodrone', 'https://twitter.com/technodrone', 'https://youtube.com/@technodrone'],
-        address: { '@type': 'PostalAddress', streetAddress: '123 Innovation Drive', addressLocality: 'Tech Valley', addressRegion: 'CA', postalCode: '94025', addressCountry: 'US' },
+        address: { '@type': 'PostalAddress', streetAddress: 'Ayodhaya Nagar', addressLocality: 'Bhopal', addressRegion: 'MP', postalCode: '462041', addressCountry: 'IN' },
       },
       { '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${SITE_URL}/#website`, url: SITE_URL, name: 'Techno Drone Robotics', description: fullDescription, publisher: { '@id': `${SITE_URL}/#organization` } },
       { '@context': 'https://schema.org', '@type': 'BreadcrumbList', '@id': `${url}/#breadcrumb`, itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL }, ...(path !== '/' ? [{ '@type': 'ListItem', position: 2, name: fullTitle.split('|')[0]?.trim() || 'Page', item: url }] : [])] },

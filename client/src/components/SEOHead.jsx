@@ -66,11 +66,11 @@ export default function SEOHead({
             ],
             "address": {
               "@type": "PostalAddress",
-              "streetAddress": "123 Innovation Drive",
-              "addressLocality": "Tech Valley",
-              "addressRegion": "CA",
-              "postalCode": "94025",
-              "addressCountry": "US"
+              "streetAddress": "Ayodhaya Nagar",
+              "addressLocality": "Bhopal",
+              "addressRegion": "MP",
+              "postalCode": "462041",
+              "addressCountry": "IN"
             }
           },
           {
