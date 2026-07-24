@@ -17,10 +17,10 @@ import SEOHead from '../components/SEOHead';
 import { fetchProducts, submitContact } from '../api';
 
 const stats = [
-  { label: 'Drones Deployed', value: 2500, suffix: '+' },
-  { label: 'Flight Hours', value: 50000, suffix: '+' },
-  { label: 'Clients Served', value: 500, suffix: '+' },
-  { label: 'Patents Pending', value: 24, suffix: '' },
+  { label: 'Drones Deployed', value: 3200, suffix: '+' },
+  { label: 'Flight Hours', value: 65000, suffix: '+' },
+  { label: 'Clients Served', value: 780, suffix: '+' },
+  { label: 'Patents Pending', value: 18, suffix: '' },
 ];
 
 const solutions = [
@@ -210,9 +210,9 @@ export default function Home() {
               <div className="bg-gradient-to-br from-electric/5 to-blue-50 rounded-2xl p-6 border border-electric/10">
                 <div className="grid grid-cols-3 gap-4 text-center">
                   {[
-                    { value: 2500, label: 'Drones Built' },
-                    { value: 50000, label: 'Flight Hours' },
-                    { value: 500, label: 'Clients' },
+                    { value: 3200, label: 'Drones Built' },
+                    { value: 65000, label: 'Flight Hours' },
+                    { value: 780, label: 'Clients' },
                   ].map((s) => (
                     <div key={s.label}>
                       <div className="text-2xl font-bold text-gradient"><CountUp end={s.value} suffix="+" /></div>
