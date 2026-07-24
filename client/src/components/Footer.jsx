@@ -12,9 +12,7 @@ const quickLinks = [
   { label: 'Technology', path: '/technology' },
   { label: 'About', path: '/about' },
   { label: 'Contact', path: '/#contact' },
-  { label: 'Team', path: '/team' },
   { label: 'Blog', path: '/blog' },
-  { label: 'Careers', path: '/careers' },
 ];
 
 const socialLinks = [

@@ -10,8 +10,6 @@ const labels = {
   '/gallery': 'Gallery',
   '/blog': 'Blog',
   '/contact': 'Contact',
-  '/careers': 'Careers',
-  '/team': 'Team',
   '/privacy-policy': 'Privacy Policy',
   '/terms-of-service': 'Terms of Service',
 };
