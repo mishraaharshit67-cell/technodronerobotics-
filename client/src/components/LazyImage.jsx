@@ -17,7 +17,7 @@ export default function LazyImage({ src, alt, className = '', ...props }) {
 
   return (
     <div ref={ref} className={`relative overflow-hidden ${className}`} {...props}>
-      {inView && <img src={src} alt={alt} className={`w-full h-full object-cover transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`} onLoad={() => setLoaded(true)} />}
+      {inView && <img src={src} alt={alt} className={`w-full h-full object-cover object-center transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`} onLoad={() => setLoaded(true)} />}
       {(!loaded || !inView) && <div className="absolute inset-0 bg-gray-100 animate-pulse" />}
     </div>
   );
