@@ -17,7 +17,6 @@ const navLinks = [
 const secondaryLinks = [
   { path: '/gallery', label: 'Gallery' },
   { path: '/blog', label: 'Blog' },
-  { path: '/careers', label: 'Careers' },
 ];
 
 export default function Navbar() {
@@ -69,7 +68,7 @@ export default function Navbar() {
       scrolled
         ? 'bg-white/80 backdrop-blur-xl border-b border-gray-100/80 shadow-sm'
         : 'bg-transparent'
-    }`}>
+    } ${mobileOpen ? 'bg-white/95 backdrop-blur-xl' : ''}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           <Link to="/" className="flex items-center gap-3 group shrink-0">
@@ -145,7 +144,7 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-navy/60 backdrop-blur-sm z-40 lg:hidden"
+              className="fixed inset-0 bg-navy/70 backdrop-blur-sm z-40 lg:hidden"
               onClick={() => setMobileOpen(false)}
             />
             <motion.div
@@ -153,7 +152,7 @@ export default function Navbar() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="fixed top-0 right-0 bottom-0 w-72 bg-white z-40 lg:hidden shadow-2xl"
+              className="fixed top-0 right-0 bottom-0 w-[85vw] max-w-sm bg-white z-40 lg:hidden shadow-2xl"
             >
               <div className="flex items-center h-16 px-4 border-b border-gray-100">
                 <img src="/company-logo.jpeg" alt="Techno Drone Robotics" className="h-8" />
@@ -187,9 +186,6 @@ export default function Navbar() {
                       {link.label}
                     </Link>
                   ))}
-                  <Link to="/team" className="block px-4 py-2.5 text-sm font-semibold text-gray-500 hover:text-electric hover:bg-gray-50 rounded-lg transition-colors">
-                    Team
-                  </Link>
                   <button onClick={toggle} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm font-semibold text-gray-500 hover:text-navy hover:bg-gray-50 rounded-lg transition-colors mt-1">
                     {dark ? <FiSun size={16} /> : <FiMoon size={16} />} {dark ? 'Light Mode' : 'Dark Mode'}
                   </button>

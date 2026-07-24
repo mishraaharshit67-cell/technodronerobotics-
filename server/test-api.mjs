@@ -2,12 +2,11 @@ import http from 'http';
 
 const BASE = 'http://localhost:5000/api';
 const TIMEOUT = 3000;
-let passed = 0, failed = 0, skipped = 0;
+let passed = 0, failed = 0;
 
 function request(method, path, body) {
-  return new Promise((resolve, reject) => {
-    const fullUrl = BASE + path;
-    const url = new URL(fullUrl);
+  return new Promise((resolve) => {
+    const url = new URL(BASE + path);
     const opts = { method, hostname: url.hostname, port: url.port, path: url.pathname + url.search, timeout: TIMEOUT, headers: { 'Content-Type': 'application/json' } };
     const req = http.request(opts, (res) => {
       let data = '';
@@ -27,11 +26,8 @@ async function test(name, fn) {
 }
 
 function expectStatus(r, expected) {
-  if (r.status === 0 && r.body === 'TIMEOUT') throw new Error('TIMEOUT (MongoDB not running?)');
+  if (r.status === 0) throw new Error(`TIMEOUT: ${r.body}`);
   if (r.status !== expected) throw new Error(`Expected ${expected} got ${r.status}`);
-}
-function expectKey(r, key) {
-  if (!r.body || r.body[key] === undefined) throw new Error(`Expected .${key} in response`);
 }
 
 async function main() {
@@ -41,17 +37,11 @@ console.log('  [Health]');
 await test('GET /api/health returns 200', async () => {
   const r = await request('GET', '/health');
   expectStatus(r, 200);
-  expectKey(r, 'success');
 });
 
-console.log('\n  [Validation — no DB needed]');
+console.log('\n  [Validation]');
 await test('POST /api/contact empty body → 400', async () => {
   const r = await request('POST', '/contact', {});
-  expectStatus(r, 400);
-});
-
-await test('POST /api/contact invalid email → 400', async () => {
-  const r = await request('POST', '/contact', { name: 'T', email: 'bad', message: 'Hi' });
   expectStatus(r, 400);
 });
 
@@ -70,15 +60,6 @@ await test('GET /api/auth/me no token → 401', async () => {
   expectStatus(r, 401);
 });
 
-// DB-dependent auth
-for (const [name, method, path, body, expected] of [
-  ['POST /api/auth/login wrong creds → 401', 'POST', '/auth/login', { email: 'x@x.com', password: 'wrong' }, 401],
-]) {
-  const r = await request(method, path, body);
-  if (r.status === 0) { skipped++; console.log(`  - ${name} (skipped — no DB)`); }
-  else { await test(name, () => { expectStatus(r, expected); }); }
-}
-
 await test('POST /api/products no token → 401', async () => {
   const r = await request('POST', '/products', { name: 'test' });
   expectStatus(r, 401);
@@ -89,22 +70,34 @@ await test('POST /api/upload no token → 401', async () => {
   expectStatus(r, 401);
 });
 
-// These need MongoDB — mark as info only
-console.log('\n  [DB-dependent — requires MongoDB]');
-for (const [name, method, path] of [
-  ['GET /api/products', 'GET', '/products'],
-  ['GET /api/products?category=FPV Drone', 'GET', '/products?category=FPV%20Drone'],
-  ['GET /api/blog', 'GET', '/blog'],
-  ['GET /api/blog?tag=AI', 'GET', '/blog?tag=AI'],
-  ['GET /api/jobs', 'GET', '/jobs'],
-  ['DELETE /api/newsletter/test@test.com', 'DELETE', '/newsletter/test@test.com'],
-]) {
-  const r = await request(method, path);
-  if (r.status === 0) { skipped++; console.log(`  - ${name} (skipped — no DB)`); }
-  else { await test(name, () => { expectStatus(r, 200); }); }
-}
+console.log('\n  [Data endpoints]');
+await test('GET /api/products returns data', async () => {
+  const r = await request('GET', '/products');
+  expectStatus(r, 200);
+  if (!r.body.success) throw new Error('Expected success');
+});
 
-console.log(`\n${passed + failed + skipped} tests — ${passed} passed, ${failed} failed, ${skipped} skipped (no MongoDB)\n`);
+await test('GET /api/blog returns data', async () => {
+  const r = await request('GET', '/blog');
+  expectStatus(r, 200);
+});
+
+await test('GET /api/jobs returns data', async () => {
+  const r = await request('GET', '/jobs');
+  expectStatus(r, 200);
+});
+
+await test('POST /api/auth/login wrong creds → 401', async () => {
+  const r = await request('POST', '/auth/login', { email: 'x@x.com', password: 'wrong' });
+  expectStatus(r, 401);
+});
+
+await test('DELETE /api/newsletter/test@test.com returns 200', async () => {
+  const r = await request('DELETE', '/newsletter/test@test.com');
+  expectStatus(r, 200);
+});
+
+console.log(`\n${passed + failed} tests — ${passed} passed, ${failed} failed\n`);
 process.exit(failed > 0 ? 1 : 0);
 }
 

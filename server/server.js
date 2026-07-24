@@ -1,78 +1,99 @@
-import express from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
-import compression from 'compression';
-import dotenv from 'dotenv';
-import rateLimit from 'express-rate-limit';
+import { createApp, jsonResponse } from './lib/http.js';
+import { loadEnv } from './lib/env.js';
+import { createCors } from './lib/cors.js';
+import { createHelmet } from './lib/helmet.js';
+import { createCompression } from './lib/compress.js';
+import { createRateLimit } from './lib/rateLimit.js';
+import { createUpload } from './lib/upload.js';
+import { register, login, getMe, registerValidation, loginValidation } from './controllers/authController.js';
+import { submitContact, getContacts } from './controllers/contactController.js';
+import { subscribe, getSubscribers, unsubscribe } from './controllers/newsletterController.js';
+import { getProducts, getProduct, getProductBySlug, createProduct, updateProduct, deleteProduct } from './controllers/productController.js';
+import { getPosts, getPost, createPost, updatePost, deletePost } from './controllers/blogController.js';
+import { getJobs, getJob, createJob, updateJob, deleteJob } from './controllers/jobController.js';
+import { uploadFile, uploadMultiple } from './controllers/uploadController.js';
+import { protect, adminOnly } from './middleware/auth.js';
+import { body } from './lib/validate.js';
+import { notFound, errorHandler } from './middleware/errorHandler.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import connectDB from './config/db.js';
-import contactRoutes from './routes/contact.js';
-import newsletterRoutes from './routes/newsletter.js';
-import productRoutes from './routes/products.js';
-import blogRoutes from './routes/blog.js';
-import jobRoutes from './routes/jobs.js';
-import authRoutes from './routes/auth.js';
-import { upload, uploadFile, uploadMultiple } from './controllers/uploadController.js';
-import { protect } from './middleware/auth.js';
-import { errorHandler, notFound } from './middleware/errorHandler.js';
+import fs from 'fs';
 
-dotenv.config();
+loadEnv();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const app = express();
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const app = createApp();
 const PORT = process.env.PORT || 5000;
 
-import mongoose from 'mongoose';
-let dbConnected = false;
-connectDB().then((ok) => { dbConnected = ok; if (!ok) console.warn('Starting without database — some routes will return errors.'); });
+app.use(createCors({
+  origin: process.env.NODE_ENV === 'production' ? [process.env.CLIENT_URL || 'https://technodronerobotics.com'] : ['http://localhost:5173', 'http://localhost:3000'],
+  credentials: true,
+}));
+app.use(createHelmet());
+app.use(createCompression());
+app.use(createRateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 
-// Security
-app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
-app.use(compression());
+app.static(path.join(__dirname, '..', 'client', 'dist'));
 
-// CORS
-const allowedOrigins = process.env.NODE_ENV === 'production'
-  ? [process.env.CLIENT_URL || 'https://technodronerobotics.com']
-  : ['http://localhost:5173', 'http://localhost:3000'];
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+const upload = createUpload({ maxSize: 10 * 1024 * 1024 });
 
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true }));
+// Auth
+app.post('/api/auth/register', ...registerValidation, register);
+app.post('/api/auth/login', ...loginValidation, login);
+app.get('/api/auth/me', protect, getMe);
 
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-  message: { success: false, message: 'Too many requests, please try again later.' },
-});
-app.use('/api/', limiter);
+// Contact
+app.post('/api/contact', body('name').trim().notEmpty().withMessage('Name is required'), body('email').isEmail().normalizeEmail().withMessage('Valid email required'), body('message').trim().notEmpty().withMessage('Message is required'), submitContact);
+app.get('/api/contact', protect, getContacts);
 
-// Static uploads
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Newsletter
+app.post('/api/newsletter', body('email').isEmail().normalizeEmail().withMessage('Valid email required'), subscribe);
+app.get('/api/newsletter', protect, getSubscribers);
+app.delete('/api/newsletter/:email', unsubscribe);
 
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/contact', contactRoutes);
-app.use('/api/newsletter', newsletterRoutes);
-app.use('/api/products', productRoutes);
-app.use('/api/blog', blogRoutes);
-app.use('/api/jobs', jobRoutes);
+// Products
+app.get('/api/products', getProducts);
+app.get('/api/products/slug/:slug', getProductBySlug);
+app.get('/api/products/:id', getProduct);
+app.post('/api/products', protect, body('name').trim().notEmpty().withMessage('Name is required'), body('category').trim().notEmpty().withMessage('Category is required'), body('description').trim().notEmpty().withMessage('Description is required'), createProduct);
+app.put('/api/products/:id', protect, updateProduct);
+app.delete('/api/products/:id', protect, deleteProduct);
+
+// Blog
+app.get('/api/blog', getPosts);
+app.get('/api/blog/:slug', getPost);
+app.post('/api/blog', protect, body('title').trim().notEmpty().withMessage('Title is required'), body('content').trim().notEmpty().withMessage('Content is required'), createPost);
+app.put('/api/blog/:id', protect, updatePost);
+app.delete('/api/blog/:id', protect, deletePost);
+
+// Jobs
+app.get('/api/jobs', getJobs);
+app.get('/api/jobs/:id', getJob);
+app.post('/api/jobs', protect, body('title').trim().notEmpty().withMessage('Title is required'), body('dept').trim().notEmpty().withMessage('Department is required'), body('location').trim().notEmpty().withMessage('Location is required'), createJob);
+app.put('/api/jobs/:id', protect, updateJob);
+app.delete('/api/jobs/:id', protect, deleteJob);
 
 // Upload
-app.post('/api/upload', protect, upload.single('file'), uploadFile);
-app.post('/api/upload/multiple', protect, upload.array('files', 10), uploadMultiple);
+app.post('/api/upload', protect, (req, res, next) => upload(req, res, () => uploadFile(req, res, next)));
+app.post('/api/upload/multiple', protect, (req, res, next) => upload(req, res, () => uploadMultiple(req, res, next)));
 
-// Health check
-app.get('/api/health', (req, res) => {
-  res.json({ success: true, message: 'TDR API is running', timestamp: new Date().toISOString(), uptime: process.uptime() });
+// Uploads static
+app.get('/uploads/:file', (req, res) => {
+  const fp = path.join(__dirname, 'uploads', req.params.file);
+  if (!fs.existsSync(fp)) return jsonResponse(res, 404, { success: false, message: 'File not found' });
+  const extMap = { '.jpeg': 'image/jpeg', '.jpg': 'image/jpeg', '.png': 'image/png', '.gif': 'image/gif', '.webp': 'image/webp', '.svg': 'image/svg+xml', '.mp4': 'video/mp4', '.pdf': 'application/pdf' };
+  const content = fs.readFileSync(fp);
+  res.writeHead(200, { 'Content-Type': extMap[path.extname(req.params.file).toLowerCase()] || 'application/octet-stream', 'Content-Length': content.length });
+  res.end(content);
 });
 
-// Error handling
-app.use(notFound);
-app.use(errorHandler);
+// Health
+app.get('/api/health', (req, res) => {
+  jsonResponse(res, 200, { success: true, message: 'TDR API is running', timestamp: new Date().toISOString(), uptime: process.uptime() });
+});
+
+app.setNotFoundHandler(notFound);
+app.setErrorHandler(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`TDR Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);

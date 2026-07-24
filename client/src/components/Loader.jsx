@@ -33,7 +33,7 @@ export default function Loader({ onComplete }) {
       <motion.div
         initial={{ opacity: 1 }}
         exit={{ opacity: 0, transition: { duration: 0.6 } }}
-        className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white"
+        className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(30,144,255,0.12),_transparent_55%),_linear-gradient(135deg,_#f8fbff,_#eef6ff)] px-4"
       >
         <div className="relative mb-12">
           <motion.div
@@ -63,7 +63,7 @@ export default function Loader({ onComplete }) {
           />
         </div>
 
-        <div className="w-64 mb-4">
+        <div className="w-full max-w-xs sm:max-w-sm mb-4">
           <div className="h-1 bg-white/10 rounded-full overflow-hidden">
             <motion.div
               className="h-full bg-gradient-to-r from-electric to-electric-dark rounded-full"
@@ -73,7 +73,7 @@ export default function Loader({ onComplete }) {
           </div>
         </div>
 
-        <div className="font-mono text-xs tracking-[0.2em] text-electric/70">{status}</div>
+        <div className="font-mono text-[11px] sm:text-xs tracking-[0.2em] text-electric/70 text-center">{status}</div>
         <div className="font-mono text-xs text-gray-600 mt-2">{Math.round(progress)}%</div>
       </motion.div>
     </AnimatePresence>

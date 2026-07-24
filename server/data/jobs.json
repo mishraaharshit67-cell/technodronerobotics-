@@ -1,0 +1,110 @@
+[
+  {
+    "_id": "1",
+    "title": "Senior Autonomy Engineer",
+    "dept": "Engineering",
+    "location": "San Jose, CA",
+    "type": "Full-time",
+    "description": "Design autonomous flight algorithms for next-gen drone platforms.",
+    "requirements": [
+      "PhD or MS in Robotics/CS/EE",
+      "5+ years autonomous systems",
+      "ROS/ROS2 expertise",
+      "C++/Python proficiency",
+      "Sensor fusion"
+    ],
+    "active": true,
+    "createdAt": "2026-07-23T02:20:24.406Z",
+    "updatedAt": "2026-07-23T02:20:24.406Z"
+  },
+  {
+    "_id": "2",
+    "title": "Computer Vision Engineer",
+    "dept": "AI Research",
+    "location": "San Jose, CA",
+    "type": "Full-time",
+    "description": "Develop CV models for real-time object detection and tracking.",
+    "requirements": [
+      "MS/PhD in CV/ML",
+      "PyTorch/TensorFlow",
+      "Model optimization for edge",
+      "Object detection & tracking",
+      "Published research preferred"
+    ],
+    "active": true,
+    "createdAt": "2026-07-23T02:20:24.408Z",
+    "updatedAt": "2026-07-23T02:20:24.408Z"
+  },
+  {
+    "_id": "3",
+    "title": "Hardware Design Engineer",
+    "dept": "Engineering",
+    "location": "San Jose, CA",
+    "type": "Full-time",
+    "description": "Design drone airframes, propulsion systems, and payload integration.",
+    "requirements": [
+      "BS/MS in Mechanical/Aerospace Eng",
+      "3+ years UAV design",
+      "CAD (SolidWorks/Onshape)",
+      "CFD and FEA analysis",
+      "Composite materials experience"
+    ],
+    "active": true,
+    "createdAt": "2026-07-23T02:20:24.408Z",
+    "updatedAt": "2026-07-23T02:20:24.408Z"
+  },
+  {
+    "_id": "4",
+    "title": "Full Stack Developer",
+    "dept": "Software",
+    "location": "Remote (US)",
+    "type": "Full-time",
+    "description": "Build drone fleet management platform and ground control software.",
+    "requirements": [
+      "5+ years full stack dev",
+      "React/Node.js/TypeScript",
+      "PostgreSQL/MongoDB",
+      "GraphQL API design",
+      "Real-time data visualization"
+    ],
+    "active": true,
+    "createdAt": "2026-07-23T02:20:24.409Z",
+    "updatedAt": "2026-07-23T02:20:24.409Z"
+  },
+  {
+    "_id": "5",
+    "title": "Field Operations Specialist",
+    "dept": "Operations",
+    "location": "Multiple US Cities",
+    "type": "Full-time",
+    "description": "Conduct on-site drone flight operations for client projects.",
+    "requirements": [
+      "FAA Part 107 certified",
+      "500+ flight hours",
+      "Enterprise drone experience",
+      "Excellent communication",
+      "Willingness to travel 60%"
+    ],
+    "active": true,
+    "createdAt": "2026-07-23T02:20:24.410Z",
+    "updatedAt": "2026-07-23T02:20:24.410Z"
+  },
+  {
+    "_id": "6",
+    "title": "Technical Writer",
+    "dept": "Product",
+    "location": "Remote (US)",
+    "type": "Contract",
+    "description": "Create comprehensive technical documentation and user manuals.",
+    "requirements": [
+      "3+ years technical writing",
+      "Documentation tools experience",
+      "Complex system comprehension",
+      "Portfolio of work",
+      "STEM background preferred"
+    ],
+    "active": true,
+    "createdAt": "2026-07-23T02:20:24.411Z",
+    "updatedAt": "2026-07-23T02:20:24.411Z"
+  }
+]

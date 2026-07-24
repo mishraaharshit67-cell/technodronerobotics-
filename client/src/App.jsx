@@ -24,8 +24,6 @@ const Gallery = lazy(() => import('./pages/Gallery'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Contact = lazy(() => import('./pages/Contact'));
-const Careers = lazy(() => import('./pages/Careers'));
-const Team = lazy(() => import('./pages/Team'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -115,8 +113,6 @@ export default function App() {
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/careers" element={<Careers />} />
-              <Route path="/team" element={<Team />} />
               <Route path="/privacy-policy" element={<Privacy />} />
               <Route path="/terms-of-service" element={<Terms />} />
               <Route path="*" element={<NotFound />} />

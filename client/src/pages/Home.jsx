@@ -108,26 +108,31 @@ export default function Home() {
 
       <main>
       {/* ============ HERO ============ */}
-      <section id="home" ref={targetRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section id="home" ref={targetRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-navy">
         <div className="absolute inset-0">
           <video autoPlay muted loop playsInline preload="metadata"
-            className="w-full h-full object-cover">
+            className="w-full h-full object-cover opacity-70"
+            poster="/company-logo.jpeg"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+            }}>
             <source src="/hero-bg.mp4" type="video/mp4" />
             <source src="/hero-bg.webm" type="video/webm" />
           </video>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(102,178,255,0.2),_transparent_50%)]" />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-navy/80 via-navy/50 to-navy/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-navy/80 via-navy/60 to-navy/90" />
         <div className="absolute inset-0 bg-grid opacity-20" />
         <AnimatedOrbs count={3} />
 
-        <motion.div style={{ opacity: heroOpacity, scale: heroScale, y: heroY }} className="relative z-10 text-center px-4 max-w-5xl mx-auto">
+        <motion.div style={{ opacity: heroOpacity, scale: heroScale, y: heroY }} className="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto py-16 sm:py-20">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mb-6">
             <span className="inline-block px-4 py-1.5 text-xs font-mono tracking-wider text-electric-light bg-white/5 border border-white/10 rounded-full">
               FPV · AGRICULTURAL · FIRE FIGHTING · KAMIKAZE · CUSTOM
             </span>
           </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
-            className="text-3xl sm:text-5xl md:text-7xl font-bold mb-4 leading-tight text-white">
+            className="text-3xl sm:text-5xl md:text-7xl font-bold mb-4 leading-tight text-white px-2 sm:px-0">
             The Future of <span className="text-gradient">Flight</span> is Autonomous
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
@@ -135,10 +140,10 @@ export default function Home() {
             Engineering what flies, and what works beside you.
           </motion.p>
           <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
-            className="text-blue-100/70 text-sm sm:text-lg md:text-xl max-w-2xl mx-auto mb-10">
+            className="text-blue-100/70 text-sm sm:text-lg md:text-xl max-w-2xl mx-auto mb-10 px-2 sm:px-0">
             From FPV racers and agricultural sprayers to firefighting drones and loitering munitions — we engineer mission-specific UAVs for any domain.
           </motion.p>
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} className="flex flex-col sm:flex-row gap-4 justify-center">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }} className="flex flex-col sm:flex-row gap-4 justify-center px-2 sm:px-0">
             <a href="/#drones" className="btn-primary text-lg inline-flex items-center gap-2 justify-center shadow-lg shadow-electric/25">
               Explore Products <FiArrowRight />
             </a>

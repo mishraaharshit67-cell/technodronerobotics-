@@ -1,0 +1,147 @@
+[
+  {
+    "_id": "1",
+    "title": "The Future of Autonomous Drone Swarms in Disaster Response",
+    "slug": "autonomous-drone-swarms-disaster-response",
+    "excerpt": "How swarms of AI-coordinated drones are revolutionizing search and rescue.",
+    "content": "Full article content here...",
+    "author": "Dr. Sarah Chen",
+    "tags": [
+      "AI",
+      "Swarm Tech",
+      "Rescue"
+    ],
+    "featured": true,
+    "published": true,
+    "createdAt": "2026-07-23T02:20:24.396Z",
+    "updatedAt": "2026-07-23T02:20:24.396Z"
+  },
+  {
+    "_id": "2",
+    "title": "TDR-X1 Pro Review: First 100 Hours of Flight",
+    "slug": "tdr-x1-pro-review",
+    "excerpt": "Our engineering team put the new TDR-X1 Pro through extreme testing.",
+    "content": "Full article content here...",
+    "author": "Marcus Rivera",
+    "tags": [
+      "Product",
+      "Review",
+      "Testing"
+    ],
+    "featured": true,
+    "published": true,
+    "createdAt": "2026-07-23T02:20:24.396Z",
+    "updatedAt": "2026-07-23T02:20:24.396Z"
+  },
+  {
+    "_id": "3",
+    "title": "Beyond Visual Line of Sight: Regulatory Update 2026",
+    "slug": "bvlos-regulatory-update-2026",
+    "excerpt": "Overview of evolving BVLOS regulations for commercial drone operators.",
+    "content": "Full article content here...",
+    "author": "Alex Foster",
+    "tags": [
+      "Regulation",
+      "BVLOS",
+      "Commercial"
+    ],
+    "published": true,
+    "createdAt": "2026-07-23T02:20:24.397Z",
+    "updatedAt": "2026-07-23T02:20:24.397Z"
+  },
+  {
+    "_id": "4",
+    "title": "Thermal Imaging for Solar Farm Inspection",
+    "slug": "thermal-imaging-solar-farm-inspection",
+    "excerpt": "How TDR-M2 drones helped a 200MW solar farm detect 94% of panel defects.",
+    "content": "Full article content here...",
+    "author": "Priya Sharma",
+    "tags": [
+      "Case Study",
+      "Thermal",
+      "Energy"
+    ],
+    "published": true,
+    "createdAt": "2026-07-23T02:20:24.398Z",
+    "updatedAt": "2026-07-23T02:20:24.398Z"
+  },
+  {
+    "_id": "5",
+    "title": "Building a Digital Twin: From Point Cloud to BIM",
+    "slug": "digital-twin-point-cloud-bim",
+    "excerpt": "Guide to converting drone-captured LiDAR data into building information models.",
+    "content": "Full article content here...",
+    "author": "James Okonkwo",
+    "tags": [
+      "Tutorial",
+      "LiDAR",
+      "BIM"
+    ],
+    "published": true,
+    "createdAt": "2026-07-23T02:20:24.399Z",
+    "updatedAt": "2026-07-23T02:20:24.399Z"
+  },
+  {
+    "_id": "6",
+    "title": "Hydrogen Fuel Cells: The Next Frontier in Drone Endurance",
+    "slug": "hydrogen-fuel-cells-drone-endurance",
+    "excerpt": "How hydrogen-hybrid propulsion could extend drone flight times to 24+ hours.",
+    "content": "Full article content here...",
+    "author": "Dr. Sarah Chen",
+    "tags": [
+      "Technology",
+      "Propulsion",
+      "R&D"
+    ],
+    "published": true,
+    "createdAt": "2026-07-23T02:20:24.399Z",
+    "updatedAt": "2026-07-23T02:20:24.399Z"
+  },
+  {
+    "_id": "7",
+    "title": "TDR at AUVSI 2026: What We Showed",
+    "slug": "tdr-auvisi-2026",
+    "excerpt": "Recap of our presence at the world's largest unmanned systems conference.",
+    "content": "Full article content here...",
+    "author": "Marketing Team",
+    "tags": [
+      "Events",
+      "Conference"
+    ],
+    "published": true,
+    "createdAt": "2026-07-23T02:20:24.400Z",
+    "updatedAt": "2026-07-23T02:20:24.400Z"
+  },
+  {
+    "_id": "8",
+    "title": "Precision Agriculture: How Drones Are Feeding the Future",
+    "slug": "precision-agriculture-drones",
+    "excerpt": "Multi-spectral imaging and AI analytics are transforming farming.",
+    "content": "Full article content here...",
+    "author": "Aiko Tanaka",
+    "tags": [
+      "Agriculture",
+      "Multi-spectral",
+      "AI"
+    ],
+    "published": true,
+    "createdAt": "2026-07-23T02:20:24.401Z",
+    "updatedAt": "2026-07-23T02:20:24.401Z"
+  },
+  {
+    "_id": "9",
+    "title": "Drone Pilot Training: Beyond the Part 107 License",
+    "slug": "drone-pilot-training-beyond-part-107",
+    "excerpt": "Advanced training programs that separate professionals from hobbyists.",
+    "content": "Full article content here...",
+    "author": "Training Team",
+    "tags": [
+      "Training",
+      "Career",
+      "Education"
+    ],
+    "published": true,
+    "createdAt": "2026-07-23T02:20:24.402Z",
+    "updatedAt": "2026-07-23T02:20:24.402Z"
+  }
+]

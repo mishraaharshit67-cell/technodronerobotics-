@@ -1,57 +1,34 @@
-import { validationResult } from 'express-validator';
-import Job from '../models/Job.js';
+import * as Job from '../models/Job.js';
 
-export const getJobs = async (req, res) => {
-  try {
-    const { dept, type, active } = req.query;
-    const filter = {};
-    if (active === 'true') filter.active = true;
-    if (dept) filter.dept = dept;
-    if (type) filter.type = type;
-    const jobs = await Job.find(filter).sort({ createdAt: -1 });
-    res.json({ success: true, count: jobs.length, data: jobs });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
+export function getJobs(req, res, next) {
+  const { dept, type, active } = req.query;
+  let query = {};
+  if (active !== 'false') query.active = true;
+  if (dept) query.dept = dept;
+  if (type) query.type = type;
+  const all = Job.findAll(query);
+  res.json({ success: true, count: all.length, data: all });
+}
 
-export const getJob = async (req, res) => {
-  try {
-    const job = await Job.findById(req.params.id);
-    if (!job) return res.status(404).json({ success: false, message: 'Job not found' });
-    res.json({ success: true, data: job });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
+export function getJob(req, res, next) {
+  const job = Job.findById(req.params.id);
+  if (!job) return res.status(404).json({ success: false, message: 'Job not found' });
+  res.json({ success: true, data: job });
+}
 
-export const createJob = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) return res.status(400).json({ success: false, errors: errors.array() });
-  try {
-    const job = await Job.create(req.body);
-    res.status(201).json({ success: true, data: job });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
+export function createJob(req, res, next) {
+  const job = Job.create({ ...req.body, active: true });
+  res.status(201).json({ success: true, data: job });
+}
 
-export const updateJob = async (req, res) => {
-  try {
-    const job = await Job.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
-    if (!job) return res.status(404).json({ success: false, message: 'Job not found' });
-    res.json({ success: true, data: job });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
+export function updateJob(req, res, next) {
+  const job = Job.update(req.params.id, { $set: req.body });
+  if (!job) return res.status(404).json({ success: false, message: 'Job not found' });
+  res.json({ success: true, data: job });
+}
 
-export const deleteJob = async (req, res) => {
-  try {
-    const job = await Job.findByIdAndDelete(req.params.id);
-    if (!job) return res.status(404).json({ success: false, message: 'Job not found' });
-    res.json({ success: true, message: 'Job deleted' });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
+export function deleteJob(req, res, next) {
+  const ok = Job.remove(req.params.id);
+  if (!ok) return res.status(404).json({ success: false, message: 'Job not found' });
+  res.json({ success: true, message: 'Job deleted' });
+}

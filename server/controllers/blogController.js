@@ -1,60 +1,45 @@
-import { validationResult } from 'express-validator';
-import BlogPost from '../models/BlogPost.js';
+import * as BlogPost from '../models/BlogPost.js';
 
-export const getPosts = async (req, res) => {
-  try {
-    const { tag, featured, limit, page = 1 } = req.query;
-    const filter = { published: true };
-    if (tag) filter.tags = tag;
-    if (featured === 'true') filter.featured = true;
-    const pageSize = parseInt(limit) || 20;
-    const skip = (parseInt(page) - 1) * pageSize;
-    const posts = await BlogPost.find(filter).sort({ createdAt: -1 }).skip(skip).limit(pageSize);
-    const total = await BlogPost.countDocuments(filter);
-    res.json({ success: true, count: posts.length, total, page: parseInt(page), pages: Math.ceil(total / pageSize), data: posts });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
+export function getPosts(req, res, next) {
+  const { tag, search, page = 1, limit = 6 } = req.query;
+  let query = { published: true };
+  if (tag) query.tags = { $in: [tag] };
+  if (search) query.title = { $regex: search, $options: 'i' };
+  const all = BlogPost.findAll(query);
+  const total = all.length;
+  const start = (parseInt(page) - 1) * parseInt(limit);
+  const col = BlogPost.findAll();
+  col.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  const filtered = col.filter((p) => {
+    if (!p.published) return false;
+    if (tag && (!p.tags || !p.tags.includes(tag))) return false;
+    if (search && !p.title?.toLowerCase().includes(search.toLowerCase())) return false;
+    return true;
+  });
+  const data = filtered.slice(start, start + parseInt(limit));
+  res.json({ success: true, count: data.length, total: filtered.length, page: parseInt(page), pages: Math.ceil(filtered.length / parseInt(limit)), data });
+}
 
-export const getPost = async (req, res) => {
-  try {
-    const post = await BlogPost.findOne({ slug: req.params.slug });
-    if (!post) return res.status(404).json({ success: false, message: 'Post not found' });
-    res.json({ success: true, data: post });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
+export function getPost(req, res, next) {
+  const post = BlogPost.findBySlug(req.params.slug);
+  if (!post) return res.status(404).json({ success: false, message: 'Post not found' });
+  res.json({ success: true, data: post });
+}
 
-export const createPost = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) return res.status(400).json({ success: false, errors: errors.array() });
-  try {
-    const post = await BlogPost.create({ ...req.body, author: req.body.author || req.admin?.name || 'TDR Team' });
-    res.status(201).json({ success: true, data: post });
-  } catch (error) {
-    if (error.code === 11000) return res.status(400).json({ success: false, message: 'A post with this slug already exists' });
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
+export function createPost(req, res, next) {
+  const { title, content, excerpt, author, tags, featured } = req.body;
+  const post = BlogPost.create({ title, slug: title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''), content, excerpt: excerpt || content.slice(0, 200), author: author || 'TDR Team', tags: tags || [], featured: !!featured, published: true });
+  res.status(201).json({ success: true, data: post });
+}
 
-export const updatePost = async (req, res) => {
-  try {
-    const post = await BlogPost.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
-    if (!post) return res.status(404).json({ success: false, message: 'Post not found' });
-    res.json({ success: true, data: post });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
+export function updatePost(req, res, next) {
+  const post = BlogPost.update(req.params.id, { $set: req.body });
+  if (!post) return res.status(404).json({ success: false, message: 'Post not found' });
+  res.json({ success: true, data: post });
+}
 
-export const deletePost = async (req, res) => {
-  try {
-    const post = await BlogPost.findByIdAndDelete(req.params.id);
-    if (!post) return res.status(404).json({ success: false, message: 'Post not found' });
-    res.json({ success: true, message: 'Post deleted' });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
+export function deletePost(req, res, next) {
+  const ok = BlogPost.remove(req.params.id);
+  if (!ok) return res.status(404).json({ success: false, message: 'Post not found' });
+  res.json({ success: true, message: 'Post deleted' });
+}

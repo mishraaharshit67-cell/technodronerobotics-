@@ -27,18 +27,19 @@ const socialLinks = [
 export default function Footer() {
   const location = useLocation();
   const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
+  const [feedback, setFeedback] = useState({ type: '', message: '' });
   const [subscribing, setSubscribing] = useState(false);
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
     setSubscribing(true);
+    setFeedback({ type: '', message: '' });
     try {
       await subscribeNewsletter(email);
-      setSubscribed(true);
+      setFeedback({ type: 'success', message: 'Thanks for subscribing!' });
       setEmail('');
     } catch {
-      setSubscribed(true);
+      setFeedback({ type: 'error', message: 'Please try again later.' });
       setEmail('');
     }
     setSubscribing(false);
@@ -109,20 +110,25 @@ export default function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-navy uppercase tracking-widest mb-4">Newsletter</h3>
             <p className="text-gray-600 text-sm mb-4">Stay updated with the latest in drone technology and company news.</p>
-            {subscribed ? (
+            {feedback.type === 'success' ? (
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-cyan text-sm">
-                Thanks for subscribing!
+                {feedback.message}
               </motion.div>
             ) : (
-              <form onSubmit={handleSubscribe} className="flex gap-2">
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Your email" required disabled={subscribing}
-                  className="flex-1 px-3 py-2 bg-white border border-electric/20 rounded-lg text-sm text-navy placeholder-gray-400 focus:outline-none focus:border-electric/50 transition-colors" />
-                <button type="submit" disabled={subscribing} aria-label="Subscribe to newsletter"
-                  className="p-2 bg-gradient-to-r from-electric to-electric-dark rounded-lg hover:shadow-lg hover:shadow-electric/30 transition-all">
-                  <FiSend size={18} />
-                </button>
-              </form>
+              <>
+                {feedback.type === 'error' && (
+                  <p className="mb-3 text-sm text-red-600">{feedback.message}</p>
+                )}
+                <form onSubmit={handleSubscribe} className="flex gap-2">
+                  <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Your email" required disabled={subscribing}
+                    className="flex-1 px-3 py-2 bg-white border border-electric/20 rounded-lg text-sm text-navy placeholder-gray-400 focus:outline-none focus:border-electric/50 transition-colors" />
+                  <button type="submit" disabled={subscribing} aria-label="Subscribe to newsletter"
+                    className="p-2 bg-gradient-to-r from-electric to-electric-dark rounded-lg hover:shadow-lg hover:shadow-electric/30 transition-all disabled:opacity-60">
+                    <FiSend size={18} />
+                  </button>
+                </form>
+              </>
             )}
             <p className="text-[10px] text-gray-400 mt-2">
               <a href="/api/newsletter/unsubscribe" className="hover:text-electric transition-colors" target="_blank" rel="noopener noreferrer">Unsubscribe</a>

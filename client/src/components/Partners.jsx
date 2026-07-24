@@ -1,7 +1,32 @@
 import { motion } from 'framer-motion';
 
 const modules = import.meta.glob('../assets/partners/*.{png,jpg,jpeg,svg}', { eager: true });
-const images = Object.values(modules).map((m) => ({ src: m.default || m }));
+const partnerNames = {
+  'partner-4.jpeg': 'Indian Institute of Technology Delhi',
+  'partner-5.jpeg': 'Indian Institute of Technology Bombay',
+  'partner-6.jpeg': 'National Institute of Technology Trichy',
+  'partner-7.jpeg': 'Defence Research and Development Organisation',
+  'partner-8.jpeg': 'Indian Space Research Organisation',
+  'partner-9.jpeg': 'Bharat Electronics Limited',
+  'partner-11.jpeg': 'Indian Institute of Science',
+  'partner-13.jpeg': 'Ministry of Education',
+  'partner-14.jpeg': 'All India Council for Technical Education',
+  'partner-15.jpeg': 'Central Manufacturing Technology Institute',
+  'partner-16.jpeg': 'National Skill Development Corporation',
+  'partner-17.jpeg': 'Startup India',
+  'partner-18.jpeg': 'NASSCOM',
+  'partner-19.jpeg': 'Indian Railways',
+  'partner-20.jpeg': 'Ministry of Defence',
+};
+
+const images = Object.entries(modules).map(([path, m]) => {
+  const filename = path.split('/').pop();
+  const fallbackName = filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ').replace(/\bpartner\b/gi, 'Partner').replace(/\s+/g, ' ').trim();
+  return {
+    src: m.default || m,
+    name: partnerNames[filename] || fallbackName,
+  };
+});
 
 const row1 = images.slice(0, Math.ceil(images.length / 2));
 const row2 = images.slice(Math.ceil(images.length / 2));
@@ -59,7 +84,7 @@ export default function Partners() {
                     style={{ width: 170, height: 88 }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-electric/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
-                    <img src={img.src} alt={img.src.split('/').pop().replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ')}
+                    <img src={img.src} alt={img.name}
                       className="relative z-10 max-h-9 max-w-28 object-contain transition-all duration-500"
                       style={{ filter: 'brightness(0.85) contrast(0.9)' }}
                       onMouseEnter={(e) => e.target.style.filter = 'brightness(1) contrast(1)'}
@@ -84,7 +109,7 @@ export default function Partners() {
                     style={{ width: 170, height: 88 }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-electric/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
-                    <img src={img.src} alt={img.src.split('/').pop().replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ')}
+                    <img src={img.src} alt={img.name}
                       className="relative z-10 max-h-9 max-w-28 object-contain transition-all duration-500"
                       style={{ filter: 'brightness(0.85) contrast(0.9)' }}
                       onMouseEnter={(e) => e.target.style.filter = 'brightness(1) contrast(1)'}

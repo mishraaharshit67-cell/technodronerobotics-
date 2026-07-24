@@ -1,0 +1,11 @@
+[
+  {
+    "_id": "1",
+    "name": "TDR Admin",
+    "email": "admin@technodronerobotics.com",
+    "password": "e412c1ff9dc1825e3ac14d1a3dd1e7f1:8f164afe7ef362398efc33368d602e1380b862812c06146659217a01c64869918d136c3108df14cc726f352ce58bc75dcb16ee6dd014d902217c2c2b0e721193",
+    "role": "admin",
+    "createdAt": "2026-07-23T02:20:24.470Z",
+    "updatedAt": "2026-07-23T02:20:24.470Z"
+  }
+]

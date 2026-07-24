@@ -1,12 +1,11 @@
-import mongoose from 'mongoose';
+import db from '../lib/database.js';
 
-const contactSchema = new mongoose.Schema({
-  name: { type: String, required: true, trim: true },
-  email: { type: String, required: true, trim: true, lowercase: true },
-  company: { type: String, trim: true, default: '' },
-  phone: { type: String, trim: true, default: '' },
-  service: { type: String, trim: true, default: '' },
-  message: { type: String, required: true, trim: true },
-}, { timestamps: true });
+const contacts = () => db.collection('contacts');
 
-export default mongoose.model('Contact', contactSchema);
+export function findAll(query = {}) {
+  return contacts().find(query);
+}
+
+export function create(data) {
+  return contacts().insertOne(data);
+}

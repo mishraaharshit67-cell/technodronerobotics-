@@ -1,0 +1,178 @@
+[
+  {
+    "_id": "1",
+    "name": "TDR-FPV Racer",
+    "slug": "tdr-fpv-racer",
+    "category": "FPV Drone",
+    "description": "Built for speed freaks and competitive drone racers. Lightweight carbon-fiber airframe, high-KV brushless motors, and low-latency HD digital FPV system.",
+    "specs": [
+      "120km/h Top Speed",
+      "HD FPV 120fps",
+      "15min Flight",
+      "4km Range",
+      "Digital VTX"
+    ],
+    "price": "$1,299",
+    "features": [
+      "High-speed FPV racing",
+      "Carbon-fiber airframe",
+      "Low-latency HD digital transmission"
+    ],
+    "image": "https://images.unsplash.com/photo-1774553988130-ccda57774818?w=600&q=80",
+    "active": true,
+    "createdAt": "2026-07-23T02:20:24.381Z",
+    "updatedAt": "2026-07-23T02:20:24.381Z"
+  },
+  {
+    "_id": "2",
+    "name": "TDR-FPV Explorer",
+    "slug": "tdr-fpv-explorer",
+    "category": "FPV Drone",
+    "description": "Pushes the boundaries of long-range FPV flight with 4K stabilized gimbal camera and dual-band Crossfire receiver.",
+    "specs": [
+      "25min Flight",
+      "4K FPV Feed",
+      "8km Range",
+      "Stabilized Gimbal",
+      "Return-to-Home"
+    ],
+    "price": "$2,499",
+    "image": "https://images.unsplash.com/photo-1507582020474-09a35b7d455d9?w=600&q=80",
+    "active": true,
+    "createdAt": "2026-07-23T02:20:24.384Z",
+    "updatedAt": "2026-07-23T02:20:24.384Z"
+  },
+  {
+    "_id": "3",
+    "name": "TDR-Agri Spray",
+    "slug": "tdr-agri-spray",
+    "category": "Agricultural",
+    "description": "Revolutionizes precision farming with automated crop treatment. 30-liter chemical tank with 6-meter carbon-fiber spray boom.",
+    "specs": [
+      "30L Tank",
+      "6m Spray Width",
+      "35min Flight",
+      "RTK GPS",
+      "Auto Path Planning"
+    ],
+    "price": "$8,999",
+    "image": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80",
+    "active": true,
+    "createdAt": "2026-07-23T02:20:24.385Z",
+    "updatedAt": "2026-07-23T02:20:24.385Z"
+  },
+  {
+    "_id": "4",
+    "name": "TDR-Agri Survey",
+    "slug": "tdr-agri-survey",
+    "category": "Agricultural",
+    "description": "Sophisticated crop health monitoring platform capturing multi-spectral imagery across 5 bands.",
+    "specs": [
+      "Multi-spectral",
+      "NDVI/NDRE/RE",
+      "60min Flight",
+      "AI Analytics",
+      "Field Reports"
+    ],
+    "price": "$11,999",
+    "image": "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
+    "active": true,
+    "createdAt": "2026-07-23T02:20:24.385Z",
+    "updatedAt": "2026-07-23T02:20:24.385Z"
+  },
+  {
+    "_id": "5",
+    "name": "TDR-Fire Scout",
+    "slug": "tdr-fire-scout",
+    "category": "Fire Fighting",
+    "description": "First-response aerial asset with 640x512 radiometric thermal camera for wildfire detection.",
+    "specs": [
+      "Thermal 640×512",
+      "40min Flight",
+      "10km Range",
+      "FireProof Coating",
+      "Real-time Feed"
+    ],
+    "price": "$14,999",
+    "image": "https://images.unsplash.com/photo-1506942596041-5f7d17c1bc2b?w=600&q=80",
+    "active": true,
+    "createdAt": "2026-07-23T02:20:24.386Z",
+    "updatedAt": "2026-07-23T02:20:24.386Z"
+  },
+  {
+    "_id": "6",
+    "name": "TDR-Fire Response",
+    "slug": "tdr-fire-response",
+    "category": "Fire Fighting",
+    "description": "Heavy-lift hexacopter engineered for direct fire suppression with 20-liter retardant deployment.",
+    "specs": [
+      "20L Retardant",
+      "IR Camera",
+      "50min Flight",
+      "Wind Resistant",
+      "Night Ops"
+    ],
+    "price": "$28,999",
+    "image": "https://images.unsplash.com/photo-1533063319369-0de118afe00a?w=600&q=80",
+    "active": true,
+    "createdAt": "2026-07-23T02:20:24.387Z",
+    "updatedAt": "2026-07-23T02:20:24.387Z"
+  },
+  {
+    "_id": "7",
+    "name": "TDR-Kamikaze Strike",
+    "slug": "tdr-kamikaze-strike",
+    "category": "Kamikaze",
+    "description": "Compact loitering munition system for surgical precision strikes with AI-powered targeting.",
+    "specs": [
+      "15min Loiter",
+      "50km Range",
+      "Autonomous Targeting",
+      "Encrypted Link",
+      "CFRP Airframe"
+    ],
+    "price": "Custom",
+    "image": "https://images.unsplash.com/photo-1514043370531-a00dbd95c42e?w=600&q=80",
+    "active": true,
+    "createdAt": "2026-07-23T02:20:24.388Z",
+    "updatedAt": "2026-07-23T02:20:24.388Z"
+  },
+  {
+    "_id": "8",
+    "name": "TDR-Kamikaze Swarm",
+    "slug": "tdr-kamikaze-swarm",
+    "category": "Kamikaze",
+    "description": "Multi-unit loitering munition swarm with collaborative target selection via mesh network.",
+    "specs": [
+      "8-Unit Swarm",
+      "Mesh Network",
+      "AI Target Select",
+      "40km Range",
+      "Electronic Warfare"
+    ],
+    "price": "Custom",
+    "image": "https://images.unsplash.com/photo-1517926135831-72893b617719?w=600&q=80",
+    "active": true,
+    "createdAt": "2026-07-23T02:20:24.389Z",
+    "updatedAt": "2026-07-23T02:20:24.389Z"
+  },
+  {
+    "_id": "9",
+    "name": "TDR-Custom Platform",
+    "slug": "tdr-custom-platform",
+    "category": "Customization",
+    "description": "Fully bespoke drone built to your specifications — airframe, payload, avionics and mission software.",
+    "specs": [
+      "Custom Airframe",
+      "Payload Integration",
+      "Custom Avionics",
+      "Mission Software",
+      "Certification"
+    ],
+    "price": "Contact Us",
+    "image": "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&q=80",
+    "active": true,
+    "createdAt": "2026-07-23T02:20:24.391Z",
+    "updatedAt": "2026-07-23T02:20:24.391Z"
+  }
+]

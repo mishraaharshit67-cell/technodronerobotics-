@@ -1,21 +1,18 @@
-import mongoose from 'mongoose';
-import bcrypt from 'bcryptjs';
+import db from '../lib/database.js';
+import { hashPassword, comparePassword } from '../lib/hash.js';
 
-const adminSchema = new mongoose.Schema({
-  name: { type: String, required: true, trim: true },
-  email: { type: String, required: true, unique: true, trim: true, lowercase: true },
-  password: { type: String, required: true, minlength: 8 },
-  role: { type: String, enum: ['admin', 'editor'], default: 'admin' },
-}, { timestamps: true });
+const admins = () => db.collection('admins');
 
-adminSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
-  this.password = await bcrypt.hash(this.password, 12);
-  next();
-});
+export function findByEmail(email) {
+  return admins().findOne({ email });
+}
 
-adminSchema.methods.comparePassword = async function (candidatePassword) {
-  return bcrypt.compare(candidatePassword, this.password);
-};
+export function findById(id) {
+  return admins().findById(id);
+}
 
-export default mongoose.model('Admin', adminSchema);
+export function create({ name, email, password, role }) {
+  return admins().insertOne({ name, email, password: hashPassword(password), role: role || 'admin' });
+}
+
+export { comparePassword };

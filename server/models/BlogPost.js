@@ -1,16 +1,31 @@
-import mongoose from 'mongoose';
+import db from '../lib/database.js';
 
-const blogPostSchema = new mongoose.Schema({
-  title: { type: String, required: true, trim: true },
-  slug: { type: String, required: true, unique: true, trim: true },
-  excerpt: { type: String, required: true },
-  content: { type: String, default: '' },
-  author: { type: String, required: true },
-  tags: [{ type: String }],
-  image: { type: String, default: '' },
-  featured: { type: Boolean, default: false },
-  published: { type: Boolean, default: false },
-  readTime: { type: String, default: '5 min read' },
-}, { timestamps: true });
+const posts = () => db.collection('blogPosts');
 
-export default mongoose.model('BlogPost', blogPostSchema);
+export function findAll(query = {}) {
+  return posts().find(query);
+}
+
+export function findBySlug(slug) {
+  return posts().findOne({ slug });
+}
+
+export function findById(id) {
+  return posts().findById(id);
+}
+
+export function create(data) {
+  return posts().insertOne(data);
+}
+
+export function update(id, data) {
+  return posts().updateOne({ _id: id }, data);
+}
+
+export function remove(id) {
+  return posts().deleteOne({ _id: id });
+}
+
+export function count(query = {}) {
+  return posts().countDocuments(query);
+}

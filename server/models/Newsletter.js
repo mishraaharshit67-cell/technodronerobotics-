@@ -1,8 +1,19 @@
-import mongoose from 'mongoose';
+import db from '../lib/database.js';
 
-const newsletterSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true, trim: true, lowercase: true },
-  subscribed: { type: Boolean, default: true },
-}, { timestamps: true });
+const subscribers = () => db.collection('newsletter');
 
-export default mongoose.model('Newsletter', newsletterSchema);
+export function findByEmail(email) {
+  return subscribers().findOne({ email });
+}
+
+export function findAll(query = {}) {
+  return subscribers().find(query);
+}
+
+export function create(data) {
+  return subscribers().insertOne(data);
+}
+
+export function updateOne(query, data) {
+  return subscribers().updateOne(query, data);
+}

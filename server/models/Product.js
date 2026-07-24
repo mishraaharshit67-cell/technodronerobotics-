@@ -1,20 +1,31 @@
-import mongoose from 'mongoose';
+import db from '../lib/database.js';
 
-const productSchema = new mongoose.Schema({
-  name: { type: String, required: true, trim: true },
-  slug: { type: String, unique: true, trim: true },
-  category: { type: String, required: true, enum: ['FPV Drone', 'Agricultural', 'Fire Fighting', 'Kamikaze', 'Customization'] },
-  description: { type: String, required: true },
-  specs: [{ type: String }],
-  price: { type: String, required: true },
-  features: [{ type: String }],
-  image: { type: String, default: '' },
-  active: { type: Boolean, default: true },
-}, { timestamps: true });
+const products = () => db.collection('products');
 
-productSchema.pre('save', function (next) {
-  if (!this.slug) this.slug = this.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-  next();
-});
+export function findAll(query = {}) {
+  return products().find(query);
+}
 
-export default mongoose.model('Product', productSchema);
+export function findById(id) {
+  return products().findById(id);
+}
+
+export function findBySlug(slug) {
+  return products().findOne({ slug });
+}
+
+export function create(data) {
+  return products().insertOne(data);
+}
+
+export function update(id, data) {
+  return products().updateOne({ _id: id }, data);
+}
+
+export function remove(id) {
+  return products().deleteOne({ _id: id });
+}
+
+export function count(query = {}) {
+  return products().countDocuments(query);
+}

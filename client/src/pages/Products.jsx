@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiSearch } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import PageTransition from '../components/PageTransition';
 import SectionTitle from '../components/SectionTitle';
 import SEOHead from '../components/SEOHead';
@@ -43,11 +44,11 @@ export default function Products() {
       />
 
       <main>
-      <section className="pt-32 pb-20">
+      <section className="pt-28 sm:pt-32 pb-16 sm:pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle as="h1" title="Our Products" subtitle="Professional-grade UAVs engineered for mission-critical operations across every industry." />
 
-          <div className="flex flex-col sm:flex-row gap-4 mb-10">
+          <div className="flex flex-col gap-4 mb-8 sm:mb-10">
             <div className="relative flex-1">
               <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600" />
               <input type="text" value={search} onChange={(e) => setSearch(e.target.value)}
@@ -78,7 +79,7 @@ export default function Products() {
                 </div>
               </div>
             ) : (
-              <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {paginated.map((product, i) => (
                   <motion.div key={product._id || product.name} layout
                     initial={{ opacity: 0, scale: 0.9 }}
@@ -86,7 +87,7 @@ export default function Products() {
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ delay: i * 0.03 }}
                   >
-                    <Link to={`/products/${product.slug}`} className="card flex flex-col group h-full">
+                    <Link to={`/products/${product.slug}`} className="card flex flex-col group h-full min-w-0">
                     <div className="aspect-[4/3] rounded-lg mb-4 bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center relative overflow-hidden">
                       {product.image && (
                         <img src={product.image} alt={product.name}
@@ -98,9 +99,9 @@ export default function Products() {
                         {product.name}
                       </div>
                     </div>
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="text-lg font-semibold group-hover:text-electric transition-colors">{product.name}</h3>
-                      <span className="text-xs font-mono text-gradient">{product.price}</span>
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <h3 className="text-lg font-semibold group-hover:text-electric transition-colors break-words">{product.name}</h3>
+                      <span className="text-xs font-mono text-gradient shrink-0">{product.price}</span>
                     </div>
                     <p className="text-gray-600 text-sm mb-3 flex-1 line-clamp-3">{product.description}</p>
                     <div className="flex flex-wrap gap-1.5 mb-3">
